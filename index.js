@@ -53,11 +53,12 @@ client.once('clientReady', () => {
         } catch (error) {
             console.error('Error sending message:', error);
         }
-    }, 5000); // 5000ms = 5 seconds
+    }, 18000000); // 5000ms = 5 seconds
 });
 
 client.login(process.env.DISCORD_TOKEN);
 
 client.on('messageCreate', async (message) => {
     await handleChatGPTMessage(message, client);
+
 });
