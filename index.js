@@ -24,29 +24,36 @@ client.once('clientReady', () => {
         try {
             const channel = await client.channels.fetch(CHANNEL_ID);
             if (channel && channel.isTextBased()) {
+                // Randomly select a subject (1-4)
+                const subjects = ['Biology', 'Physics', 'Chemistry', 'Earth Science'];
+                const randomNum = Math.floor(Math.random() * 4) + 1; // Generate random number 1-4
+                const selectedSubject = subjects[randomNum - 1];
+                
+                console.log(`Selected subject: ${selectedSubject} (Random number: ${randomNum})`);
+                
                 // Ask ChatGPT to generate a challenging science question
                 const response = await getChatGPTResponse(
-                    `Generate one challenging daily science question. The question should:
-                    1. Randomly select from: Biology, Physics, Chemistry, Earth Science, Astronomy, or Environmental Science
+                    `Generate one challenging daily science question in ${selectedSubject}. The question should:
+                    1. Be about ${selectedSubject} specifically
                     2. Be difficult enough to require 10+ minutes of thinking/calculation
                     3. Include specific numerical values or scenarios when applicable
-                    4. Include the subject area in brackets at the start like [Physics]
+                    4. Include the subject area in brackets at the start like [${selectedSubject}]
                     5. Be clear and detailed
 
                     Example format:
-                    [Physics] A satellite orbits Earth at an altitude of 800 km...`,
+                    [${selectedSubject}] A challenging question about ${selectedSubject}...`,
                     "You are an expert science educator who creates challenging, thought-provoking questions."
                 );
                 
                 // Create rich embed and send
                 const embed = createScienceQuestionEmbed(response);
                 await channel.send({ embeds: [embed] });
-                console.log(`Sent science question`);
+                console.log(`Sent ${selectedSubject} question`);
             }
         } catch (error) {
             console.error('Error sending message:', error);
         }
-    }, 18000000); // 18000000ms = 5 hours
+    }, 5000); // 5000ms = 5 seconds
 });
 
 client.login(process.env.DISCORD_TOKEN);
