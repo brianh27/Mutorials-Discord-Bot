@@ -39,6 +39,8 @@ client.once('clientReady', () => {
                     3. Include specific numerical values or scenarios when applicable
                     4. Include the subject area in brackets at the start like [${selectedSubject}]
                     5. Be clear and detailed
+                    6. Also there should only be one answer that is objective. So the answer can't be to write an essay response. 
+                    7. There should only be 1 part to the question.
 
                     Example format:
                     [${selectedSubject}] A challenging question about ${selectedSubject}...`,
@@ -62,3 +64,4 @@ client.on('messageCreate', async (message) => {
     await handleChatGPTMessage(message, client);
 
 });
+
