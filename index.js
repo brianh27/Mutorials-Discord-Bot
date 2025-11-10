@@ -41,6 +41,7 @@ client.once('clientReady', () => {
                     5. Be clear and detailed
                     6. Also there should only be one answer that is objective. So the answer can't be to write an essay response. 
                     7. There should only be 1 part to the question.
+                    8. At the end you should tell people to reply with their answer in #potd-discussion
 
                     Example format:
                     [${selectedSubject}] A challenging question about ${selectedSubject}...`,
@@ -55,7 +56,7 @@ client.once('clientReady', () => {
         } catch (error) {
             console.error('Error sending message:', error);
         }
-    }, 18000000); // 5000ms = 5 seconds
+    }, 86400000); // 24 hours
 });
 
 client.login(process.env.DISCORD_TOKEN);
@@ -64,5 +65,6 @@ client.on('messageCreate', async (message) => {
     await handleChatGPTMessage(message, client);
 
 });
+
 
 
